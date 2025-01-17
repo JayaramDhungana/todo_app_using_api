@@ -67,23 +67,32 @@ class _AddTodoPageState extends State<AddTodoPage> {
     //dosro kam tyo data lai server tira pathaune
     final url = 'https://api.nstack.in/v1/todos';
     final uri = Uri.parse(url);
-    final response = await http.post(
-      uri,
-      body: jsonEncode(body),
-       headers: {'Content-Type': 'application/json'}
-    );
+    final response = await http.post(uri,
+        body: jsonEncode(body), headers: {'Content-Type': 'application/json'});
     //ra antyama tesro kam bhaneko serverma data
     //gaisakepachi user lai success bhanera dekhaune
 
     if (response.statusCode == 201) {
+      titlecontroller.text = '';
+      descriptioncontroller.text = '';
       print("Success");
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Success to put data")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          "Success to put data",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+      ));
       print(response.statusCode);
     } else {
       print("Error");
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Faild to load data")));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          "Faild to load data",
+          style: TextStyle(color: Colors.white24),
+        ),
+        backgroundColor: Colors.red,
+      ));
     }
 
     print(response.body);
